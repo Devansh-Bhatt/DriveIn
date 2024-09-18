@@ -1,9 +1,10 @@
-// import Image from "next/image";
-// import "dotenv/config";
+"use client";
+import { trpc } from "@/app/trpc/client";
 export default function Home() {
+  const test = trpc.note.hello.useQuery();
   return (
     <div>
-      <h2>Home page</h2>
+      <p>{JSON.stringify(test.data)}</p>
     </div>
   );
 }
