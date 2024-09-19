@@ -1,4 +1,11 @@
-import { integer, pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgTable,
+  text,
+  varchar,
+  serial,
+  timestamp,
+} from "drizzle-orm/pg-core";
 import { InferSelectModel } from "drizzle-orm";
 
 export const users = pgTable("users", {
@@ -33,7 +40,7 @@ export const notes = pgTable("notes", {
   userId: integer("userId").references(() => users.id),
   content: text("content"),
   title: text("title"),
-  lastUpdated: integer("lastUpdated").default(Date.now()),
+  lastUpdated: timestamp("lastUpdated").defaultNow(),
 });
 
 export type User = InferSelectModel<typeof users>;

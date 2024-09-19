@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1726563241710,
-      "tag": "0000_unique_marauders",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1726584155310,
-      "tag": "0001_robust_bedlam",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1726599652664,
-      "tag": "0002_oval_wallow",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1726603298822,
-      "tag": "0003_fresh_carlie_cooper",
+      "when": 1726752660489,
+      "tag": "0000_bumpy_shinko_yamashiro",
       "breakpoints": true
     }
   ]
