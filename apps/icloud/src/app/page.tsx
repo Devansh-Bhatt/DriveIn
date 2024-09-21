@@ -13,6 +13,11 @@ export default function Home() {
       getUsers.refetch();
     },
   });
+  const editNote = trpc.note.updateNote.useMutation({
+    onSettled: () => {
+      getNotes.refetch();
+    },
+  });
   const getUsers = trpc.user.getUser.useQuery();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -50,6 +55,12 @@ export default function Home() {
           onClick={() => addNotes.mutate({ title, content, from })}
         >
           Add Note
+        </button>
+        <button
+          className="border border-black"
+          onClick={() => editNote.mutate({ title, content, from })}
+        >
+          Edit Note
         </button>
       </div>
       <div className="flex flex-col gap-3 max-w-80">
