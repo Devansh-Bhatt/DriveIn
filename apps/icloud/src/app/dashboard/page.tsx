@@ -5,8 +5,6 @@ import ProfileCard from "../components/Profile";
 import Photos from "../components/Photos";
 import Documents from "../components/Documents";
 import Notes from "../components/Notes";
-import BGImage from "@/app/assets/bg.jpg";
-import Image from "next/image";
 
 export default async function DashBoard() {
   const session = await auth();
@@ -15,16 +13,14 @@ export default async function DashBoard() {
     redirect("/api/auth/signin?callbackUrl=/dashboard");
   }
   return (
-    <div className="max-h-screen bg-cover bg-no-repeat bg-center">
-      <Image src={BGImage} alt="bg-image" fill={true} className="z-0" />
+    <div className="min-h-screen bg-icloud bg-center bg-cover overflow-hidden">
       <Navbar />
-      <div className="mx-60 mt-20 grid grid-cols-3 gap-6 items-center max-h-screen">
+      <div className="mx-10 lg:mx-40 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
         <ProfileCard user={session.user} />
         <Photos user={session.user} />
         <Documents user={session.user} />
         <Notes user={session.user} />
       </div>
-      <p>{JSON.stringify(session.user)}</p>
     </div>
   );
 }

@@ -35,17 +35,20 @@ export const noteRouter = router({
     }),
   updateNote: publicProcedure
     .input(
-      z.object({ title: z.string(), content: z.string(), from: z.number() }),
+      z.object({ title: z.string(), content: z.string(), from: z.string() }),
     )
     .mutation(async (opts) => {
       const { input } = opts;
       const datum = new Date();
       try {
-        await db.update(notes).set({
-          title: input.title,
-          content: input.content,
-          lastUpdated: datum,
-        });
+        await db
+          .update(notes)
+          .set({
+            title: input.title,
+            content: input.content,
+            lastUpdated: datum,
+          })
+          .where(eq(notes.id, input.from));
       } catch (err) {
         console.log("Error : ", err);
       }

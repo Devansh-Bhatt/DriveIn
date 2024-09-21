@@ -1,13 +1,13 @@
-import AppleIcon from "@/app/assets/apple-svgrepo-com.svg";
+import AppleIcon from "@/public/apple-svgrepo-com.svg";
 import Image from "next/image";
-import AddIcon from "@/app/assets/add-ellipse-svgrepo-com.svg";
-import DotsIcon from "@/app/assets/dots-9-svgrepo-com.svg";
-import AccountIcon from "@/app/assets/account-svgrepo-com.svg";
+import AddIcon from "@/public/add-ellipse-svgrepo-com.svg";
+import DotsIcon from "@/public/dots-9-svgrepo-com.svg";
+import AccountIcon from "@/public/account-svgrepo-com.svg";
 
 export default function Navbar() {
   return (
-    <div className="sticky top-0 z-20 mb-5">
-      <div className="flex justify-between shadow-black bg-opacity-50 text-white text-md font-bold gap-3 px-5 py-2">
+    <div className="sticky top-0 z-20 mb-5 backdrop-blur-lg shadow-lg ">
+      <div className="flex justify-between text-white text-md font-bold gap-3 px-5 py-2">
         <div className="flex items-center">
           <Image
             src={AppleIcon}

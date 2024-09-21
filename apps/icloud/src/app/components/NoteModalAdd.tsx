@@ -4,20 +4,15 @@ import { trpc } from "../trpc/client";
 
 export default function Note_Modal_Add({
   user,
-  meta,
 }: {
   user: {
     id?: string | null;
   };
-  meta: {
-    title?: string | null;
-    content?: string | null;
-  };
 }) {
   const from = user.id!;
   const [isOpen, setIsOpen] = useState(false);
-  const [title, setTitle] = useState<string>(meta.title!);
-  const [content, setContent] = useState<string>(meta.content!);
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
   const getNotes = trpc.note.getNotes.useQuery({ userId: user.id! });
   const addNotes = trpc.note.addNote.useMutation({
     onSettled: () => {
@@ -70,7 +65,7 @@ export default function Note_Modal_Add({
                 <input
                   type="text"
                   className="rounded-lg w-max"
-                  value={meta.title!}
+                  value={content}
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <h3>Content</h3>
@@ -78,7 +73,7 @@ export default function Note_Modal_Add({
                   className="rounded-lg"
                   rows={5}
                   cols={20}
-                  value={meta.content!}
+                  value={content}
                   onChange={(e) => setContent(e.target.value)}
                 />
               </div>

@@ -1,7 +1,8 @@
-import type { Config } from "tailwindcss";
+// import type { Config } from "tailwindcss";
+import { withUt } from "uploadthing/tw";
 
 import flowbite from "flowbite-react/tailwind";
-const config: Config = {
+export default withUt({
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -14,8 +15,12 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        icloud: "url('/bg.jpg')",
+      },
     },
   },
   plugins: [flowbite.plugin()],
-};
-export default config;
+});
+
+// export  config;

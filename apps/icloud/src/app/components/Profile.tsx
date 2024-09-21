@@ -11,7 +11,7 @@ export default async function ProfileCard({
   };
 }) {
   return (
-    <div className="p-10 bg-slate-200 rounded-3xl h-80 w-80 hover:scale-105 overflow-hidden z-10 transition-transform">
+    <div className="p-10 bg-slate-200 rounded-3xl h-80 hover:scale-105 overflow-hidden z-10 transition-transform duration-300 ease-in-out">
       <div className="flex flex-col items-start bottom-40">
         <Link href={user.image || ""}>
           <div className="w-20 h-20 bg-gray-200 rounded-full overflow-hidden relative">

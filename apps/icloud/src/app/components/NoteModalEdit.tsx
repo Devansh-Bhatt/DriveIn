@@ -12,14 +12,15 @@ export default function Note_Modal_Edit({
   meta: {
     title?: string | null;
     content?: string | null;
+    id?: string | null;
   };
 }) {
-  const from = user.id!;
+  const from = meta.id!;
   const [isOpen, setIsOpen] = useState(true);
   const [title, setTitle] = useState<string>(meta.title!);
   const [content, setContent] = useState<string>(meta.content!);
   const getNotes = trpc.note.getNotes.useQuery({ userId: user.id! });
-  const addNotes = trpc.note.addNote.useMutation({
+  const updateNote = trpc.note.updateNote.useMutation({
     onSettled: () => {
       getNotes.refetch();
     },
@@ -33,7 +34,7 @@ export default function Note_Modal_Edit({
   }
 
   function handleAddNote() {
-    addNotes.mutate({ title, content, from });
+    updateNote.mutate({ title, content, from });
     close();
   }
 
@@ -63,7 +64,7 @@ export default function Note_Modal_Edit({
                 <input
                   type="text"
                   className="rounded-lg w-max"
-                  value={meta.title!}
+                  value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <h3>Content</h3>
@@ -71,7 +72,7 @@ export default function Note_Modal_Edit({
                   className="rounded-lg"
                   rows={5}
                   cols={20}
-                  value={meta.content!}
+                  value={content}
                   onChange={(e) => setContent(e.target.value)}
                 />
               </div>
@@ -80,7 +81,7 @@ export default function Note_Modal_Edit({
                   className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                   onClick={handleAddNote}
                 >
-                  Add
+                  Save
                 </Button>
               </div>
             </DialogPanel>

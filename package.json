@@ -19,5 +19,9 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@uploadthing/react": "^7.0.2",
+    "uploadthing": "^7.0.2"
+  }
 }

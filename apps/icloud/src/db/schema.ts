@@ -118,6 +118,7 @@ export const documents = pgTable("documents", {
     .$defaultFn(() => crypto.randomUUID()),
   userId: text("userId").references(() => users.id),
   link: text("link").notNull(),
+  name: text("name").notNull(),
 });
 
 export const notes = pgTable("notes", {
