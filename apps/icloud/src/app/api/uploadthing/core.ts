@@ -2,7 +2,6 @@ import { auth } from "@/auth";
 import { db } from "@/db";
 import { documents, photos } from "@/db/schema";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { UploadThingError } from "uploadthing/server";
 
 const f = createUploadthing();
 
