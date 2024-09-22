@@ -1,8 +1,5 @@
 import AppleIcon from "@/public/apple-svgrepo-com.svg";
 import Image from "next/image";
-import AddIcon from "@/public/add-ellipse-svgrepo-com.svg";
-import DotsIcon from "@/public/dots-9-svgrepo-com.svg";
-import AccountIcon from "@/public/account-svgrepo-com.svg";
 import SignoutButton from "../components/SignOutButton";
 import { signOut } from "@/auth";
 
