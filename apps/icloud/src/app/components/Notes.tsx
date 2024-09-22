@@ -20,8 +20,12 @@ export default function Notes({
     content: string;
     id: string;
   } | null>(null);
+
   function handleNoteClick(title: string, content: string, id: string) {
     setSelectedNote({ title, content, id });
+  }
+  function handleCloseModal() {
+    setSelectedNote(null);
   }
   return (
     <div className="bg-white rounded-3xl h-80 z-10 hover:scale-105 overflow-y-auto transition-transform duration-300 ease-in-out">
@@ -51,35 +55,39 @@ export default function Notes({
             content: selectedNote.content,
             id: selectedNote.id,
           }}
+          onclose={handleCloseModal}
         />
       )}
-      <div
-        className='grid grid-cols-1 px-2 pt-2 gap-y-2 text-sm ${
-                selectedNote ? "pointer-events-none opacity-50" : ""
-              }'
-      >
+      <div className="grid grid-cols-1 px-2 pt-2 gap-y-2 text-sm">
         {getNotes.data &&
-          getNotes.data.map((note) => {
-            return (
-              <div
-                key={note.id}
-                className="p-2 flex flex-col shadow-sm hover:bg-slate-100"
-                onClick={() =>
-                  handleNoteClick(note.title!, note.content!, note.id!)
-                }
-              >
-                <div>{note.title}</div>
-                <div className="flex">
-                  <p className="overflow-x-hidden text-nowrap">
-                    {note.lastUpdated?.slice(0, 10)}
-                  </p>
-                  <p className="ml-4 text-slate-400 overflow-x-hidden text-nowrap">
-                    {note.content}
-                  </p>
+          getNotes.data
+            .slice()
+            .sort((a, b) => {
+              const dateA = new Date(a.lastUpdated!).getTime();
+              const dateB = new Date(b.lastUpdated!).getTime();
+              return dateB - dateA;
+            })
+            .map((note) => {
+              return (
+                <div
+                  key={note.id}
+                  className="p-2 flex flex-col shadow-sm hover:bg-slate-100"
+                  onClick={() =>
+                    handleNoteClick(note.title!, note.content!, note.id!)
+                  }
+                >
+                  <div>{note.title}</div>
+                  <div className="flex">
+                    <p className="overflow-x-hidden text-nowrap">
+                      {note.lastUpdated?.slice(0, 10)}
+                    </p>
+                    <p className="ml-4 text-slate-400 overflow-x-hidden text-nowrap">
+                      {note.content}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
       </div>
 
       {!getNotes.data && <div className="">No Notes</div>}

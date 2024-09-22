@@ -11,7 +11,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: "https://huddle-i-cloud-icloud.vercel.app/api/trpc",
+          url: "https://huddle-i-cloud-icloud.vercel.app/dashboard/api/trpc",
         }),
       ],
     }),

@@ -20,6 +20,8 @@ export default function Note_Modal_Add({
     },
   });
   function open() {
+    setTitle("");
+    setContent("");
     setIsOpen(true);
   }
 
@@ -36,7 +38,7 @@ export default function Note_Modal_Add({
     <>
       <Button
         onClick={open}
-        className="rounded-md bg-black/20 z-10 py-2 px-4 text-sm font-medium text-white focus:outline-none data-[hover]:bg-black/30 data-[focus]:outline-1 data-[focus]:outline-white"
+        className="rounded-md bg-yellow-500 z-10 py-2 px-4 text-sm font-medium text-white focus:outline-none data-[hover]:bg-black/30 data-[focus]:outline-1 data-[focus]:outline-white"
       >
         Add Note
       </Button>
@@ -64,13 +66,13 @@ export default function Note_Modal_Add({
                 <h3>Title</h3>
                 <input
                   type="text"
-                  className="rounded-lg w-max"
-                  value={content}
+                  className="rounded-lg w-max p-2"
+                  value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <h3>Content</h3>
                 <textarea
-                  className="rounded-lg"
+                  className="rounded-lg p-2"
                   rows={5}
                   cols={20}
                   value={content}

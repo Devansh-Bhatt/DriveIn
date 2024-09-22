@@ -12,8 +12,9 @@ export default function Photos({
     id?: string | null;
   };
 }) {
-  const photos = trpc.photos.getPhotos.useQuery({ userId: user.id! });
-  console.log(photos.data);
+  const { data: photos, refetch } = trpc.photos.getPhotos.useQuery({
+    userId: user.id!,
+  });
   return (
     <div className="md:col-span-2 bg-white rounded-3xl z-10 h-80 hover:scale-105 overflow-hidden transition-transform duration-300 ease-in-out">
       <div className="flex h-[25%] bg-slate-200 items-center justify-between p-4">
@@ -46,6 +47,7 @@ export default function Photos({
             onClientUploadComplete={(res) => {
               console.log("Files: ", res);
               alert("Upload Completed");
+              refetch();
             }}
             onUploadError={(error: Error) => {
               alert(`ERROR! ${error.message}`);
@@ -54,18 +56,22 @@ export default function Photos({
         </div>
       </div>
       <div className="grid md:grid-cols-4 grid-cols-3 gap-0 overflow-y-auto">
-        {photos.data ? (
-          photos.data.map((photo) => {
+        {photos ? (
+          photos.map((photo) => {
             return (
-              <Image
-                src={photo.link}
-                alt="test"
-                key={photo.id}
-                className="object-cover w-full rounded-lg p-1 h-[7rem]"
-                width={100}
-                height={100}
-                // fill={true}
-              />
+              <>
+                <a onClick={() => window.open(photo.link)}>
+                  <Image
+                    src={photo.link}
+                    alt="test"
+                    key={photo.id}
+                    className="object-cover w-full rounded-lg p-1 h-[7rem]"
+                    width={100}
+                    height={100}
+                    priority={true}
+                  />
+                </a>
+              </>
             );
           })
         ) : (

@@ -5,6 +5,7 @@ import { trpc } from "../trpc/client";
 export default function Note_Modal_Edit({
   user,
   meta,
+  onclose,
 }: {
   user: {
     id?: string | null;
@@ -14,6 +15,7 @@ export default function Note_Modal_Edit({
     content?: string | null;
     id?: string | null;
   };
+  onclose: () => void;
 }) {
   const from = meta.id!;
   const [isOpen, setIsOpen] = useState(true);
@@ -25,26 +27,22 @@ export default function Note_Modal_Edit({
       getNotes.refetch();
     },
   });
-  // function open() {
-  //   setIsOpen(true);
-  // }
-
   function close() {
     setIsOpen(false);
+    onclose();
   }
 
   function handleAddNote() {
     updateNote.mutate({ title, content, from });
     close();
   }
-
   return (
     <>
       <Dialog
         open={isOpen}
         as="div"
         className="relative z-20 focus:outline-none"
-        onClose={close}
+        onClose={() => {}}
         __demoMode
       >
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -63,25 +61,33 @@ export default function Note_Modal_Edit({
                 <h3>Title</h3>
                 <input
                   type="text"
-                  className="rounded-lg w-max"
+                  className="rounded-lg w-max p-2"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <h3>Content</h3>
                 <textarea
-                  className="rounded-lg"
+                  className="rounded-lg p-2"
                   rows={5}
                   cols={20}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                 />
               </div>
-              <div className="mt-4">
+              <div className="mt-4 flex gap-2">
                 <Button
                   className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                   onClick={handleAddNote}
                 >
                   Save
+                </Button>
+                <Button
+                  className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+                  onClick={() => {
+                    close();
+                  }}
+                >
+                  Close
                 </Button>
               </div>
             </DialogPanel>

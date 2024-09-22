@@ -3,6 +3,8 @@ import Image from "next/image";
 import AddIcon from "@/public/add-ellipse-svgrepo-com.svg";
 import DotsIcon from "@/public/dots-9-svgrepo-com.svg";
 import AccountIcon from "@/public/account-svgrepo-com.svg";
+import SignoutButton from "../components/SignOutButton";
+import { signOut } from "@/auth";
 
 export default function Navbar() {
   return (
@@ -39,6 +41,14 @@ export default function Navbar() {
             className=""
             width={19}
             height={19}
+          />
+          <SignoutButton
+            signOut={async () => {
+              "use server";
+              await signOut({
+                redirectTo: "/api/auth/signin?callbackUrl=/dashboard",
+              });
+            }}
           />
         </div>
       </div>

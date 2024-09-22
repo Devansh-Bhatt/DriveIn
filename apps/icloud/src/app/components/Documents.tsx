@@ -13,7 +13,9 @@ export default function Documents({
     id?: string | null;
   };
 }) {
-  const docs = trpc.documents.getDocs.useQuery({ userId: user.id! });
+  const { data: docs, refetch } = trpc.documents.getDocs.useQuery({
+    userId: user.id!,
+  });
   return (
     <div className="md:col-span-2 bg-white rounded-3xl z-10 h-80 hover:scale-105 overflow-hidden transition-transform duration-300 ease-in-out">
       <div className="h-[25%] bg-slate-200 ">
@@ -41,6 +43,7 @@ export default function Documents({
               onClientUploadComplete={(res) => {
                 console.log("Files: ", res);
                 alert("Upload Completed");
+                refetch();
               }}
               onUploadError={(error: Error) => {
                 alert(`ERROR! ${error.message}`);
@@ -50,8 +53,8 @@ export default function Documents({
         </div>
       </div>
       <div className="grid grid-cols-2 gap-y-6 gap-x-4 p-2 overflow-hidden  ">
-        {docs.data ? (
-          docs.data.map((doc) => {
+        {docs ? (
+          docs.map((doc) => {
             return (
               <>
                 <a onClick={() => window.open(doc.link)}>
