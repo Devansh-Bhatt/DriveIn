@@ -13,6 +13,7 @@ export default function Photos({
   };
 }) {
   const photos = trpc.photos.getPhotos.useQuery({ userId: user.id! });
+  console.log(photos.data);
   return (
     <div className="md:col-span-2 bg-white rounded-3xl z-10 h-80 hover:scale-105 overflow-hidden transition-transform duration-300 ease-in-out">
       <div className="flex h-[25%] bg-slate-200 items-center justify-between p-4">
