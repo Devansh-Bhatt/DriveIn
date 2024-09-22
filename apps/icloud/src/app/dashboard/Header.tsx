@@ -21,27 +21,6 @@ export default function Navbar() {
           iCloud
         </div>
         <div className="inline-flex gap-2 items-center">
-          <Image
-            src={AddIcon}
-            alt="AppleIcon"
-            className=""
-            width={17}
-            height={17}
-          />
-          <Image
-            src={DotsIcon}
-            alt="AppleIcon"
-            className=""
-            width={17}
-            height={17}
-          />
-          <Image
-            src={AccountIcon}
-            alt="AppleIcon"
-            className=""
-            width={19}
-            height={19}
-          />
           <SignoutButton
             signOut={async () => {
               "use server";

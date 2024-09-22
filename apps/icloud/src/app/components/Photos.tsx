@@ -33,7 +33,7 @@ export default function Photos({
           <div className="ml-3 p-0">
             <h1 className="text-xl font-bold">Photos</h1>
             <p className="text-xs text-slate-500">
-              Library &bull; 2 Photos, 2 Videos
+              Library &bull; {photos?.length} Photos
             </p>
           </div>
         </div>
