@@ -87,7 +87,7 @@ npx turbo run dev --filter icloud
 
 | 	id	| 	name	| 	email	| 	emailVerified	| 	image	|
 | 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	|
-| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	|
+| 	text (PK) | 	text	| 	text	| 	timestamp	| 	text	|
 
 
 
@@ -96,31 +96,31 @@ npx turbo run dev --filter icloud
 
 | 	userId	| 	type	| 	provider	| 	providerAccountId	| 	refresh_token	| 	access_token	| 	expires_at	| 	token_type	| 	scope	| 	id_token	| 	session_state	|
 | 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	|
-| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	|
+| 	text (FK -> User.id)	| 	text (Composite PK)	| 	text (Composite PK)	| 	text	| 	text	| 	text	| 	text	| 	text	| 	text	| 	text	| 	text	|
 
-3. **Verification Token Table**
+3. **Session Table**
 
 
 | 	sessionToken	| 	userId	| 	expires	|
 | 	:-----:	| 	:-----:	| 	:-----:	|
-| 	empty	| 	empty	| 	empty	|
+| 	text (PK)	| 	text (FK)	| 	timestamp	|
 
 
-4. **Authenticators Table**
+4. **Verification Token Table**
 
 
 | 	identifier	| 	token	| 	expires	|
 | 	:-----:	| 	:-----:	| 	:-----:	|
-| 	empty	| 	empty	| 	empty	|
+| 	text (Composite PK)	| 	text (Composite PK)	| 	timestamp	|
 
 
 
-5. **Passkey Table** 
+5. **Authenticators Table** 
 
 
 | 	credentialID	| 	userId	| 	providerAccountId	| 	credentialPublicKey	| 	counter	| 	credentialDeviceType	| 	credentialBackedUp	| 	transports	|
 | 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	|
-| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	|
+| 	text (Composite PK)	| 	text (Composite PK)	| 	text	| 	text	| 	integer	| 	text	| 	boolean	| 	text	|
 
 
 
@@ -129,7 +129,7 @@ npx turbo run dev --filter icloud
 
 | 	id	| 	userId	| 	link	|
 | 	:-----:	| 	:-----:	| 	:-----:	|
-| 	empty	| 	empty	| 	empty	|
+| 	text (PK)	| 	text (FK)	| 	text	|
 
 
 
@@ -139,7 +139,7 @@ npx turbo run dev --filter icloud
 
 | 	id	| 	userId	| 	link	| 	name	|
 | 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	|
-| 	empty	| 	empty	| 	empty	| 	empty	|
+| 	text (PK)	| 	text (FK)	| 	text	| 	text	|
 
 
 
@@ -148,4 +148,4 @@ npx turbo run dev --filter icloud
 
 | 	id	| 	userId	| 	content	| 	title	| 	lastUpdated	|
 | 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	|
-| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	|
+| 	text (PK)	| 	text (FK)	| 	text	| 	text	| 	timestamp	|
