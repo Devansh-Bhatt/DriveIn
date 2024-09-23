@@ -26,7 +26,7 @@ Responsive Dashboard with the following sections:
 
     9. Fully type-safe backend/frontend integration using tRPC.
 
-## 🛠 Skills
+## 🛠 Stack
 - Next.js (App Directory)
 - TypeScript
 - tRPC for API routes
