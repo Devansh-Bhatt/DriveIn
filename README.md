@@ -1,81 +1,151 @@
-# Turborepo starter
+# iCloud - Personal Cloud Storage Application
 
-This is an official starter Turborepo.
+A passwordless sign-in application built with Next.js, TypeScript, tRPC, Drizzle ORM, and TailwindCSS. The app features a responsive dashboard with sections for user profiles, photos, document storage, and notes. 
 
-## Using this example
+## NOTE : 
+The Passkey Sign-In only works for iOS devices and that too sometimes glitches. It is recommended to sign in through Github.
 
-Run the following command:
+## Features
+Responsive Dashboard with the following sections:
 
-```sh
-npx create-turbo@latest
-```
+    1. Passwordless Authentication with Github (Recommended) and Passkey (Not recommended).
 
-## What's inside?
+    2. User profile
 
-This Turborepo includes the following packages/apps:
+    3. Photos/images upload & display
 
-### Apps and Packages
+    4. Drive (document storage with upload)
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+    5. Notes management
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+    6. File Storage: Images and documents with metadata stored in the database.
 
-### Utilities
+    7. Notes Feature: Create, edit, view notes, with timestamps and titles.
 
-This Turborepo has some additional tools already setup for you:
+    8. API: Was not able to generate Open-API specification file hence the endpoints are not exposed through Open-API.
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+    9. Fully type-safe backend/frontend integration using tRPC.
 
-### Build
+## 🛠 Skills
+- Next.js (App Directory)
+- TypeScript
+- tRPC for API routes
+- Drizzle ORM for database interactions
+- SQLite (in development)
+- TailwindCSS for UI
+- UploadThing for file storage
+- Turborepo for monorepo management
 
+## Setup
 To build all apps and packages, run the following command:
-
 ```
-cd my-turborepo
-pnpm build
+git clone https://github.com/Devansh-Bhatt/Huddle_iCloud 
+cd apps/icloud
+npm i 
 ```
+  1. Setup Environment Variables
+    - Setup your Database locally or through any provider. I chose Supabase as the my Database provider and get their respective URL's, and secret keys accordingly. 
+    - If you are using supabase, get the the DATABASE_URL,SUPABASE_URL and ANON_KEY. Setup a Github OAuth Application and the corresponding ID,Secret and AUTH_SECRET (can be anything).
+    - Setup a Uploadthing bucket/App and get the corresponding SECRET,APP_ID and TOKEN for the upload functionanlity. 
+    - Also get the PASSKEY_ID and PASSKEY_SECRET if want sign in through PASSKEY, although it doesn't work as expected.
 
-### Develop
+  ```
+  DATABASE_URL = ''
+  NEXT_PUBLIC_SUPABASE_URL = ''
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = ''
+  AUTH_GITHUB_ID = ''
+  AUTH_GITHUB_SECRET = ''
+  AUTH_SECRET = ''
+  UPLOADTHING_SECRET = ''
+  UPLOADTHING_APP_ID = ''
+  UPLOADTHING_TOKEN = ''
+  PASSKEY_ID = ''
+  PASSKEY_SECRET = ''
+  ```
+  2. Upload Schema to Database
+  Delete the migrations folder inside the supabase directory.   If you wish to change the location of your migrations, you change it under the drizzle.config.ts file at the root the application. 
 
-To develop all apps and packages, run the following command:
+  Now run : 
+  ```
+  npx drizzle-kit generate
+  npx drizzle-kit migrate
+  ```
+  3. Change Provider link
+   In the ``` createClient``` function under ``` app/trpc/provdier.tsx``` change the ```url``` of ``` httpBatchlink``` field to ``` http://localhost:3000```
 
+Now application should now be ready to run. Move back to the root of the project and run : 
 ```
-cd my-turborepo
-pnpm dev
-```
+npx turbo run dev --filter icloud
+```   
 
-### Remote Caching
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+##  Database Schema
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
-```
-cd my-turborepo
-npx turbo login
-```
+1. **User Table**
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+| 	id	| 	name	| 	email	| 	emailVerified	| 	image	|
+| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	|
+| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	|
 
-```
-npx turbo link
-```
 
-## Useful Links
 
-Learn more about the power of Turborepo:
+2. **Accounts Table**
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+
+| 	userId	| 	type	| 	provider	| 	providerAccountId	| 	refresh_token	| 	access_token	| 	expires_at	| 	token_type	| 	scope	| 	id_token	| 	session_state	|
+| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	|
+| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	|
+
+3. **Verification Token Table**
+
+
+| 	sessionToken	| 	userId	| 	expires	|
+| 	:-----:	| 	:-----:	| 	:-----:	|
+| 	empty	| 	empty	| 	empty	|
+
+
+4. **Authenticators Table**
+
+
+| 	identifier	| 	token	| 	expires	|
+| 	:-----:	| 	:-----:	| 	:-----:	|
+| 	empty	| 	empty	| 	empty	|
+
+
+
+5. **Passkey Table** 
+
+
+| 	credentialID	| 	userId	| 	providerAccountId	| 	credentialPublicKey	| 	counter	| 	credentialDeviceType	| 	credentialBackedUp	| 	transports	|
+| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	|
+| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	|
+
+
+
+6. **Photos Table**
+
+
+| 	id	| 	userId	| 	link	|
+| 	:-----:	| 	:-----:	| 	:-----:	|
+| 	empty	| 	empty	| 	empty	|
+
+
+
+7. **Documents Table**
+
+
+
+| 	id	| 	userId	| 	link	| 	name	|
+| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	|
+| 	empty	| 	empty	| 	empty	| 	empty	|
+
+
+
+8. **Notes Table**
+
+
+| 	id	| 	userId	| 	content	| 	title	| 	lastUpdated	|
+| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	| 	:-----:	|
+| 	empty	| 	empty	| 	empty	| 	empty	| 	empty	|
